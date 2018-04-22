@@ -4,6 +4,7 @@ import ar.com.heroes.model.domain.actor.ActorEntity;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -61,7 +62,8 @@ public class ActorDaoImpl implements IActorDao {
     public List<ActorEntity> getActors() {
         Criteria criteria = sessionFactory.
                 getCurrentSession().
-                createCriteria(ActorEntity.class);
+                createCriteria(ActorEntity.class)
+                .addOrder(Order.desc("lastUpdate"));
         return criteria.list();
     }
 }
