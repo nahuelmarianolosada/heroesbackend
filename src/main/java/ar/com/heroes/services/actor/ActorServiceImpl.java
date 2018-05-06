@@ -29,16 +29,19 @@ public class ActorServiceImpl implements IActorService {
     }
 
     @Override
+    @Transactional
     public ActorEntity insert(ActorEntity newActor) {
         return dao.insertActor(newActor);
     }
 
     @Override
+    @Transactional
     public ActorEntity update(ActorEntity updateActor) {
         return dao.updateActor(updateActor);
     }
 
     @Override
+    @Transactional
     public ActorEntity delete(ActorEntity actor) {
         return dao.delete(actor);
     }

@@ -7,7 +7,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
 import java.util.List;
 
 /**
@@ -29,15 +28,21 @@ public class ActorDaoImpl implements IActorDao {
 
     @Override
     public ActorEntity updateActor(ActorEntity actor) {
-        sessionFactory.getCurrentSession().update(actor);
-        return actor;
+        try {
+            sessionFactory.getCurrentSession().update(actor);
+            return actor;
+        }catch (Exception ex){
+            return null;
+        }
     }
 
 
     @Override
     public ActorEntity delete(ActorEntity actor) {
-        sessionFactory.getCurrentSession().delete(actor);
-        return actor;
+        try {
+            sessionFactory.getCurrentSession().delete(actor);
+            return actor;
+        }catch(Exception ex){return null;}
     }
 
 

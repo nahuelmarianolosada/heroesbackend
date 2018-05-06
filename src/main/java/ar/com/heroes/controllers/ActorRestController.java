@@ -88,7 +88,8 @@ public class ActorRestController {
             return false;
         }*/
         ActorEntity deletedActor = actorService.getById(id);
-        return ResponseEntity.ok().body(actorService.delete(deletedActor));
+        deletedActor = actorService.delete(deletedActor);
+        return deletedActor != null ? ResponseEntity.ok().body(deletedActor) : ResponseEntity.status(500).body(null);
     }
 
 
