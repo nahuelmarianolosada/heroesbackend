@@ -2,6 +2,7 @@ package ar.com.heroes.services.actor;
 
 import ar.com.heroes.model.dao.actor.IActorDao;
 import ar.com.heroes.model.domain.actor.ActorEntity;
+import ar.com.heroes.model.domain.actor.ActorInfoEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +22,17 @@ public class ActorServiceImpl implements IActorService {
     @Override
     public List<ActorEntity> getAll() {
         return dao.getActors();
+    }
+
+    @Override
+    public List<ActorInfoEntity> getAllWithInfo() {
+        return dao.getActorsInfo();
+    }
+
+
+    @Override
+    public ActorInfoEntity getWithInfo(int id) {
+        return dao.getActorInfo(id);
     }
 
     @Override

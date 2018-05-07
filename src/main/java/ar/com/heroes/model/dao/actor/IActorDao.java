@@ -1,7 +1,7 @@
 package ar.com.heroes.model.dao.actor;
 
 import ar.com.heroes.model.domain.actor.ActorEntity;
-import org.springframework.stereotype.Repository;
+import ar.com.heroes.model.domain.actor.ActorInfoEntity;
 
 import java.util.List;
 
@@ -20,4 +20,8 @@ public interface IActorDao {
     ActorEntity getActor(String username);
 
     List<ActorEntity> getActors();
+
+    List<ActorInfoEntity> getActorsInfo();
+
+    ActorInfoEntity getActorInfo(int id);
 }

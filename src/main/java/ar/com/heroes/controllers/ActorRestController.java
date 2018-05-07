@@ -1,5 +1,6 @@
 package ar.com.heroes.controllers;
 
+import ar.com.heroes.model.domain.actor.ActorInfoEntity;
 import ar.com.heroes.services.actor.IActorService;
 import ar.com.heroes.model.domain.actor.ActorEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +28,6 @@ public class ActorRestController {
     ActorRestController() {
     }
 
-    /*@RequestMapping(method = RequestMethod.GET)
-    public List<ActorEntity> getActorEntitys() {
-        return actorService.getAll();
-    }*/
-
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<?>> getActors(){
@@ -41,6 +37,27 @@ public class ActorRestController {
         }
         return new ResponseEntity<>(actors, HttpStatus.OK);
     }
+
+
+
+    @RequestMapping(value = "/info", method = RequestMethod.GET)
+    public ResponseEntity<?> getActorsInfoEntity() {
+        List<?> actorsInfo = actorService.getAllWithInfo();
+        if (actorsInfo == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(actorsInfo, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/info/{id}", method = RequestMethod.GET)
+    public ResponseEntity<?> getActorInfoEntity(@PathVariable("id") int id) {
+        ActorInfoEntity actorsInfo = actorService.getWithInfo(id);
+        if (actorsInfo == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(actorsInfo, HttpStatus.OK);
+    }
+
 
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -53,43 +70,27 @@ public class ActorRestController {
         return new ResponseEntity<>(actor, HttpStatus.OK);
     }
 
+
+
     @RequestMapping(method = RequestMethod.POST , consumes = "application/json")
     public ResponseEntity<?> saveActorEntity(@RequestBody ActorEntity actor) {
-        /*int nextId = 0;
-        if (this.actors.size() != 0) {
-            ActorEntity lastActorEntity = this.actors.stream().skip(this.actors.size() - 1).findFirst().orElse(null);
-            nextId = lastActorEntity.getActorId() + 1;
-        }
-
-        actor.setActorId(nextId);
-        this.actors.add(actor);
-        return actor;*/
         long id = actorService.insert(actor).getActorId();
         return ResponseEntity.ok().body(id);
     }
 
+
+
     @RequestMapping(method = RequestMethod.PUT)
     public ResponseEntity<?> updateActorEntity(@RequestBody ActorEntity actor) {
-       /* ActorEntity modifiedActorEntity = this.actors.stream().filter(u -> u.getActorId() == actor.getActorId()).findFirst().orElse(null);
-        modifiedActorEntity.setFirstName(actor.getFirstName());
-        modifiedActorEntity.setLastName(actor.getLastName());
-        return modifiedActorEntity;*/
         ActorEntity currentActor = actorService.update(actor);
         return ResponseEntity.ok().body(currentActor);
     }
 
+
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteActorEntity(@PathVariable int id) {
-       /* ActorEntity deleteActorEntity = this.actors.stream().filter(actor -> actor.getActorId() == id).findFirst().orElse(null);
-        if (deleteActorEntity != null) {
-            this.actors.remove(deleteActorEntity);
-            return true;
-        } else  {
-            return false;
-        }*/
         ActorEntity deletedActor = actorService.getById(id);
-        deletedActor = actorService.delete(deletedActor);
-        return deletedActor != null ? ResponseEntity.ok().body(deletedActor) : ResponseEntity.status(500).body(null);
+        return deletedActor != null ? ResponseEntity.ok().body(actorService.delete(deletedActor)) : ResponseEntity.status(500).body(null);
     }
 
 

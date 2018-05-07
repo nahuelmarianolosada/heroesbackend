@@ -1,6 +1,7 @@
 package ar.com.heroes.model.dao.actor;
 
 import ar.com.heroes.model.domain.actor.ActorEntity;
+import ar.com.heroes.model.domain.actor.ActorInfoEntity;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
@@ -68,7 +69,23 @@ public class ActorDaoImpl implements IActorDao {
         Criteria criteria = sessionFactory.
                 getCurrentSession().
                 createCriteria(ActorEntity.class)
-                .addOrder(Order.desc("lastUpdate"));
+                .addOrder(Order.desc("lastUpdate"))
+                .addOrder(Order.asc("actorId"));
         return criteria.list();
     }
+
+    @Override
+    public List<ActorInfoEntity> getActorsInfo(){
+        return sessionFactory.getCurrentSession()
+                .getNamedQuery("getActorsInfo")
+                .list();
+    }
+
+    @Override
+    public ActorInfoEntity getActorInfo(int id){
+        return (ActorInfoEntity) sessionFactory.getCurrentSession()
+                .getNamedQuery("getActorInfo").setInteger("id", id)
+                .list().get(0);
+    }
+
 }
