@@ -23,7 +23,7 @@ public class UserDaoImpl implements IUserDao {
                 getCurrentSession().
                 createQuery("from UserEntity where email = :email");
         query.setParameter("email", email);
-        return (UserEntity) query.list().get(0);
+        return (UserEntity) query.uniqueResult();
     }
 
     @Override

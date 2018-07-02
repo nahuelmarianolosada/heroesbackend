@@ -1,6 +1,7 @@
 package ar.com.heroes.model.domain.user;
 
 import ar.com.heroes.model.domain.role.UserRoleEntity;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -10,6 +11,7 @@ import java.util.Collection;
  */
 @Entity
 @Table(name = "user", schema = "public", catalog = "dvdrental")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class UserEntity {
     private int id;
     private String firstName;

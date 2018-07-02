@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
  */
 @Service("userServiceImpl")
 @Transactional
-public class UserServiceImpl implements UserDetailsService {
+public class UserServiceImpl implements IUserService {
 
     @Autowired
     private IUserDao userDao;
