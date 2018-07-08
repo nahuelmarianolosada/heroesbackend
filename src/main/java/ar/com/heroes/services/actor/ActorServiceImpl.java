@@ -40,6 +40,7 @@ public class ActorServiceImpl implements IActorService {
         return dao.getActorById(idActor);
     }
 
+
     @Override
     @Transactional
     public ActorEntity insert(ActorEntity newActor) {

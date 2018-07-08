@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -27,11 +28,11 @@ public class UserServiceImpl implements IUserService {
     private IUserDao userDao;
 
 
-    /*private BCryptPasswordEncoder passwordEncoder;
+    private BCryptPasswordEncoder passwordEncoder;
 
 
-    public void save(UserEntity user){
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+   /* public void save(UserEntity user){
+
         userDao.save(user);
     }*/
 
@@ -49,9 +50,42 @@ public class UserServiceImpl implements IUserService {
 
 
     private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<UserRoleEntity> roles){
-        return roles.stream()
+        Collection<? extends GrantedAuthority> authorities = roles.stream()
                 .map(role -> new SimpleGrantedAuthority(role.getRoleByIdRole().getKey()))
                 .collect(Collectors.toList());
+        return authorities;
+    }
+
+
+    @Override
+    public UserEntity findByEmail(String email) {
+       return userDao.findByEmail(email);
+    }
+
+    @Override
+    public List<UserEntity> getAll() {
+        return userDao.getUsers();
+    }
+
+    @Override
+    public UserEntity getById(int idUser) {
+        return userDao.getUserById(idUser);
+    }
+
+    @Override
+    public UserEntity insert(UserEntity newUser) {
+        newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
+        return userDao.insertUser(newUser);
+    }
+
+    @Override
+    public UserEntity update(UserEntity updateUser) {
+        return userDao.updateUser(updateUser);
+    }
+
+    @Override
+    public UserEntity delete(UserEntity user) {
+        return userDao.delete(user);
     }
 
 }
