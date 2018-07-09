@@ -33,9 +33,6 @@ import static ar.com.heroes.config.Constants.*;
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter{
     private AuthenticationManager authenticationManager;
 
-    @Autowired
-    private IUserService userService;
-
     public JWTAuthenticationFilter(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
     }
