@@ -1,13 +1,13 @@
 package ar.com.heroes.services.user;
 
 import ar.com.heroes.model.dao.user.IUserDao;
-import ar.com.heroes.model.domain.role.UserRoleEntity;
+import ar.com.heroes.model.domain.role.RoleEntity;
 import ar.com.heroes.model.domain.user.UserEntity;
+import ar.com.heroes.model.domain.userRole.UserRoleEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -44,14 +45,14 @@ public class UserServiceImpl implements IUserService {
         }
         return new org.springframework.security.core.userdetails.User(user.getEmail(),
                 user.getPassword(),
-                mapRolesToAuthorities(user.getUserRolesById()));
+                mapRolesToAuthorities(user.getRoles()));
     }
 
 
 
-    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<UserRoleEntity> roles){
+    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Set<RoleEntity> roles){
         Collection<? extends GrantedAuthority> authorities = roles.stream()
-                .map(role -> new SimpleGrantedAuthority(role.getRoleByIdRole().getKey()))
+                .map(role -> new SimpleGrantedAuthority(role.getKey()))
                 .collect(Collectors.toList());
         return authorities;
     }
@@ -64,6 +65,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public List<UserEntity> getAll() {
+
         return userDao.getUsers();
     }
 

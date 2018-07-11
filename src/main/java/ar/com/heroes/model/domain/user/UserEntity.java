@@ -1,10 +1,13 @@
 package ar.com.heroes.model.domain.user;
 
-import ar.com.heroes.model.domain.role.UserRoleEntity;
+import ar.com.heroes.model.domain.role.RoleEntity;
+import ar.com.heroes.model.domain.userRole.UserRoleEntity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by nlosada on 15/05/18.
@@ -18,7 +21,29 @@ public class UserEntity {
     private String lastName;
     private String email;
     private String password;
-    private Collection<UserRoleEntity> userRolesById;
+   /* private Collection<UserRoleEntity> userRolesById;*/
+
+    Set<RoleEntity> roles = new HashSet<>();
+    /*@ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(
+            name = "user_role",
+            joinColumns = { @JoinColumn(name = "id_user") },
+            inverseJoinColumns = { @JoinColumn(name = "id_role") }
+    )*/
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "user_role", joinColumns = { @JoinColumn(name = "id_user") },
+            inverseJoinColumns = { @JoinColumn(name = "id_role") })
+    public Set<RoleEntity> getRoles() {
+        return this.roles;
+    }
+
+    public void setRoles(Set<RoleEntity> roles) {
+        this.roles = roles;
+    }
+
+
+
+
 
     @Id
     @Column(name = "id", nullable = false)
@@ -70,15 +95,23 @@ public class UserEntity {
         this.password = password;
     }
 
+    /*public Set<RoleEntity> getRoles() {
+        return roles;
+    }
 
-    @OneToMany(mappedBy = "userByIdUser")
+    public void setRoles(Set<RoleEntity> roles) {
+        this.roles = roles;
+    }*/
+
+
+    /* @OneToMany(mappedBy = "userByIdUser")
     public Collection<UserRoleEntity> getUserRolesById() {
         return userRolesById;
     }
 
     public void setUserRolesById(Collection<UserRoleEntity> userRolesById) {
         this.userRolesById = userRolesById;
-    }
+    }*/
 
     @Override
     public boolean equals(Object o) {

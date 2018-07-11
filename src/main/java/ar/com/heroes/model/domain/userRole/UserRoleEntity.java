@@ -1,16 +1,20 @@
-package ar.com.heroes.model.domain.role;
+package ar.com.heroes.model.domain.userRole;
 
+import ar.com.heroes.model.domain.role.RoleEntity;
 import ar.com.heroes.model.domain.user.UserEntity;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 
 /**
- * Created by nlosada on 15/05/18.
+ * Created by nlosada on 09/07/18.
  */
-@Entity
-@Table(name = "user_role", schema = "public", catalog = "dvdrental")
+
+/*@Entity
+@JsonIgnoreProperties(ignoreUnknown = true)
+@Table(name = "user_role", schema = "public", catalog = "dvdrental")*/
 public class UserRoleEntity {
-    private int id;
+    /*private int id;
     private UserEntity userByIdUser;
     private RoleEntity roleByIdRole;
 
@@ -59,5 +63,5 @@ public class UserRoleEntity {
 
     public void setRoleByIdRole(RoleEntity roleByIdRole) {
         this.roleByIdRole = roleByIdRole;
-    }
+    }*/
 }

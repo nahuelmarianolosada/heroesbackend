@@ -1,18 +1,28 @@
 package ar.com.heroes.model.domain.role;
 
+import ar.com.heroes.model.domain.user.UserEntity;
+import ar.com.heroes.model.domain.userRole.UserRoleEntity;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by nlosada on 15/05/18.
  */
 @Entity
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Table(name = "role", schema = "public", catalog = "dvdrental")
 public class RoleEntity {
     private int id;
     private String key;
     private String name;
-    private Collection<UserRoleEntity> userRolesById;
+    /*private Collection<UserRoleEntity> userRolesById;*/
+
+   /* @ManyToMany(mappedBy = "user")
+    private Set<UserEntity> users= new HashSet<>();*/
 
     @Id
     @Column(name = "id", nullable = false)
@@ -44,16 +54,23 @@ public class RoleEntity {
         this.name = name;
     }
 
+   /* public Set<UserEntity> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<UserEntity> users) {
+        this.users = users;
+    }*/
 
 
-    @OneToMany(mappedBy = "roleByIdRole")
+    /* @OneToMany(mappedBy = "roleByIdRole")
     public Collection<UserRoleEntity> getUserRolesById() {
         return userRolesById;
     }
 
     public void setUserRolesById(Collection<UserRoleEntity> userRolesById) {
         this.userRolesById = userRolesById;
-    }
+    }*/
 
     @Override
     public boolean equals(Object o) {
