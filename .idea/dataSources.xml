@@ -7,5 +7,13 @@
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://localhost:5432/dvdrental</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="sessionFactory/Hibernate" uuid="2112eaa5-6a6a-44b7-b605-414bc25b07e0">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>$PROJECT_DIR$/src/main/webapp/WEB-INF/spring/dispatcher-servlet.xml</remarks>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost:5432/dvdrental</jdbc-url>
+    </data-source>
   </component>
 </project>

@@ -10,7 +10,7 @@ public class BcryptGenerator {
 
         int i = 0;
         while (i < 5) {
-            String password = "user";
+            String password = "admin2";
             BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
             String hashedPassword = passwordEncoder.encode(password);
 
@@ -18,5 +18,10 @@ public class BcryptGenerator {
             i++;
         }
 
+    }
+
+    public static String getCodedPass(String password){
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        return passwordEncoder.encode(password);
     }
 }
