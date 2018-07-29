@@ -1,5 +1,6 @@
 package ar.com.heroes.services.user;
 
+import ar.com.heroes.config.BcryptGenerator;
 import ar.com.heroes.model.dao.user.IUserDao;
 import ar.com.heroes.model.domain.role.RoleEntity;
 import ar.com.heroes.model.domain.user.UserEntity;
@@ -27,10 +28,6 @@ public class UserServiceImpl implements IUserService {
 
     @Autowired
     private IUserDao userDao;
-
-
-    private BCryptPasswordEncoder passwordEncoder;
-
 
    /* public void save(UserEntity user){
 
@@ -76,7 +73,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public UserEntity insert(UserEntity newUser) {
-        newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
+        newUser.setPassword(BcryptGenerator.getCodedPass(newUser.getPassword()));
         return userDao.insertUser(newUser);
     }
 

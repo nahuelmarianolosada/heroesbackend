@@ -1,6 +1,5 @@
 package ar.com.heroes.controllers;
 
-import ar.com.heroes.config.BcryptGenerator;
 import ar.com.heroes.model.domain.user.UserEntity;
 import ar.com.heroes.services.user.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,8 +57,6 @@ public class UserRestController {
 
     @RequestMapping(method = RequestMethod.POST , consumes = "application/json")
     public ResponseEntity<?> saveUserEntity(@RequestBody UserEntity user) {
-        String encodedPass = BcryptGenerator.getCodedPass(user.getPassword());
-        user.setPassword(encodedPass);
         long id = userService.insert(user).getId();
         return ResponseEntity.ok().body(id);
     }
