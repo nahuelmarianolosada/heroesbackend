@@ -16,7 +16,7 @@ import java.util.Set;
 @Table(name = "user", schema = "public", catalog = "dvdrental")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UserEntity {
-    private int id;
+    private Integer id;
     private String firstName;
     private String lastName;
     private String email;
@@ -46,12 +46,13 @@ public class UserEntity {
 
 
     @Id
-    @Column(name = "id", nullable = false)
-    public int getId() {
+    @Column(name = "id", unique=true, nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
