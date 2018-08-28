@@ -2,6 +2,7 @@ package ar.com.heroes.config;
 
 import ar.com.heroes.model.domain.user.UserEntity;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.json.simple.JSONArray;
