@@ -30,11 +30,6 @@ public class UserDaoImpl implements IUserDao {
         return (UserEntity) query.uniqueResult();
     }
 
-   /* @Override
-    public UserEntity save(UserEntity user) {
-        sessionFactory.getCurrentSession().save(user);
-        return user;
-    }*/
 
     @Override
     public UserEntity insertUser(UserEntity user) {
@@ -72,7 +67,7 @@ public class UserDaoImpl implements IUserDao {
         Criteria criteria = sessionFactory.
                 getCurrentSession().
                 createCriteria(UserEntity.class)
-                .addOrder(Order.asc("id"));
+                .addOrder(Order.asc("firstName"));
         return criteria.list();
     }
 

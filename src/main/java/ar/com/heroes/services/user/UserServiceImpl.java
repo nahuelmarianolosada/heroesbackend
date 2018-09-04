@@ -29,11 +29,6 @@ public class UserServiceImpl implements IUserService {
     @Autowired
     private IUserDao userDao;
 
-   /* public void save(UserEntity user){
-
-        userDao.save(user);
-    }*/
-
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         UserEntity user = userDao.findByEmail(email);
@@ -79,6 +74,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public UserEntity update(UserEntity updateUser) {
+        updateUser.setPassword(BcryptGenerator.getCodedPass(updateUser.getPassword()));
         return userDao.updateUser(updateUser);
     }
 
