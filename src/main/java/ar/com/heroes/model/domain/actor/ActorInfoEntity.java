@@ -3,6 +3,7 @@ package ar.com.heroes.model.domain.actor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Timestamp;
 
 /**
  * Created by nlosada on 06/05/18.
@@ -19,7 +20,9 @@ import java.io.Serializable;
                         "FROM actor_info t",
                 resultClass = ActorInfoEntity.class
         ),
-        @NamedNativeQuery(name = "getActorInfo", query = "SELECT t.actor_id as actor_id, " +
+        @NamedNativeQuery(
+                name = "getActorInfo",
+                query = "SELECT t.actor_id as actor_id, " +
                 "t.first_name as first_name," +
                 "t.last_name as last_name," +
                 "t.film_info as film_info " +
@@ -50,6 +53,8 @@ public class ActorInfoEntity implements Serializable {
     private String firstName;
     private String lastName;
     private String filmInfo;
+    private Timestamp lastUpdate;
+
 
 
     @Id
@@ -95,6 +100,17 @@ public class ActorInfoEntity implements Serializable {
     }
 
 
+    @Basic
+    @Column(name = "last_update", nullable = false)
+    public Timestamp getLastUpdate() {
+        return lastUpdate;
+    }
+
+    public void setLastUpdate(Timestamp lastUpdate) {
+        this.lastUpdate = lastUpdate;
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -105,6 +121,7 @@ public class ActorInfoEntity implements Serializable {
         if (actorId != that.actorId) return false;
         if (firstName != null ? !firstName.equals(that.firstName) : that.firstName != null) return false;
         if (lastName != null ? !lastName.equals(that.lastName) : that.lastName != null) return false;
+        if (lastUpdate != null ? !lastUpdate.equals(that.lastUpdate) : that.lastUpdate != null) return false;
 
         return true;
     }

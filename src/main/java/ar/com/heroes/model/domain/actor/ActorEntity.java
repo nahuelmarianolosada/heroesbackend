@@ -2,6 +2,8 @@ package ar.com.heroes.model.domain.actor;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by nlosada on 18/04/18.

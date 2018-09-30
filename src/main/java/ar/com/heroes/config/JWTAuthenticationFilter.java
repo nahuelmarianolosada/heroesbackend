@@ -1,5 +1,6 @@
 package ar.com.heroes.config;
 
+import ar.com.heroes.model.domain.staff.StaffEntity;
 import ar.com.heroes.model.domain.user.UserEntity;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -41,7 +42,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
             throws AuthenticationException {
         try {
-            UserEntity credenciales = new ObjectMapper().readValue(request.getInputStream(), UserEntity.class);
+            StaffEntity credenciales = new ObjectMapper().readValue(request.getInputStream(), StaffEntity.class);
 
             return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                     credenciales.getEmail(), credenciales.getPassword(), new ArrayList<>()));

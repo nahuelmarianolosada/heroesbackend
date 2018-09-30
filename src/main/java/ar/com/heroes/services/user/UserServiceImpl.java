@@ -29,7 +29,7 @@ public class UserServiceImpl implements IUserService {
     @Autowired
     private IUserDao userDao;
 
-    @Override
+   /* @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         UserEntity user = userDao.findByEmail(email);
         if (user == null){
@@ -38,7 +38,7 @@ public class UserServiceImpl implements IUserService {
         return new org.springframework.security.core.userdetails.User(user.getEmail(),
                 user.getPassword(),
                 mapRolesToAuthorities(user.getRoles()));
-    }
+    }*/
 
 
 
