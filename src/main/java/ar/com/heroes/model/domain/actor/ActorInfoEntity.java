@@ -25,28 +25,14 @@ import java.sql.Timestamp;
                 query = "SELECT t.actor_id as actor_id, " +
                 "t.first_name as first_name," +
                 "t.last_name as last_name," +
-                "t.film_info as film_info " +
+                "t.film_info as film_info, " +
+                "t.last_update as last_update " +
                 "FROM actor_info t " +
                 "WHERE actor_id = :id",
                 resultClass = ActorInfoEntity.class)
 })
 @Entity
-
-/*
-@NamedNativeQuery(name = "getActorsInfo", query = "SELECT t.actor_id as actor_id, " +
-        "t.first_name as first_name," +
-        "t.last_name as last_name," +
-        "t.film_info as film_info " +
-        "FROM actor_info t",
-        resultClass = ActorInfoEntity.class)*/
-
-/*@NamedNativeQuery(name = "getInfo", query = "SELECT t.actor_id as actor_id, " +
-        "t.first_name as first_name," +
-        "t.last_name as last_name," +
-        "t.film_info as film_info " +
-        "FROM actor_info t " +
-        "WHERE actor_id = :id",
-        resultClass = ActorInfoEntity.class)*/
+@Table(name="actor_info")
 public class ActorInfoEntity implements Serializable {
 
     private int actorId;
@@ -121,9 +107,7 @@ public class ActorInfoEntity implements Serializable {
         if (actorId != that.actorId) return false;
         if (firstName != null ? !firstName.equals(that.firstName) : that.firstName != null) return false;
         if (lastName != null ? !lastName.equals(that.lastName) : that.lastName != null) return false;
-        if (lastUpdate != null ? !lastUpdate.equals(that.lastUpdate) : that.lastUpdate != null) return false;
-
-        return true;
+        return lastUpdate != null ? lastUpdate.equals(that.lastUpdate) : that.lastUpdate == null;
     }
 
     @Override

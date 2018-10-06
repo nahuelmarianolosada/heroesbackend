@@ -22,11 +22,11 @@
                 <prop key="hibernate.connection.driver_class">${jdbc.driverClassName}</prop>
             </props>
         </property>
-        <property name="annotatedClasses">
+        <!--<property name="annotatedClasses">
             <list>
                 <value>ar.com.heroes.model.domain.actor.ActorEntity</value>
             </list>
-        </property>
+        </property>-->
     </bean>
 
 
