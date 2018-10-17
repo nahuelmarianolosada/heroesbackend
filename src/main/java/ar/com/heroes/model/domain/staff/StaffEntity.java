@@ -14,7 +14,6 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "staff", schema = "public", catalog = "dvdrental")
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class StaffEntity {
     private int staffId;
     private String firstName;

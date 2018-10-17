@@ -50,7 +50,7 @@ public class StaffServiceImpl implements IStaffService {
 
     @Override
     public StaffEntity findByEmail(String email) {
-       return staffDao.findByEmail(email);
+        return staffDao.get(email);
     }
 
     @Override
