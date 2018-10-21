@@ -19,6 +19,7 @@ public class RoleEntity {
     private int id;
     private String key;
     private String name;
+    private String img;
     /*private Collection<UserRoleEntity> userRolesById;*/
 
    /* @ManyToMany(mappedBy = "user")
@@ -54,7 +55,18 @@ public class RoleEntity {
         this.name = name;
     }
 
-   /* public Set<UserEntity> getUsers() {
+    @Basic
+    @Column(name = "img", nullable = true)
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+
+    /* public Set<UserEntity> getUsers() {
         return users;
     }
 
@@ -82,6 +94,7 @@ public class RoleEntity {
         if (id != that.id) return false;
         if (key != null ? !key.equals(that.key) : that.key != null) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        if (img != null ? !img.equals(that.img) : that.img != null) return false;
 
         return true;
     }
@@ -91,6 +104,7 @@ public class RoleEntity {
         int result = id;
         result = 31 * result + (key != null ? key.hashCode() : 0);
         result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (img != null ? img.hashCode() : 0);
         return result;
     }
 

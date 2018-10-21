@@ -24,7 +24,7 @@ public class StaffEntity {
     private String username;
     private String password;
     private Timestamp lastUpdate;
-    private byte[] picture;
+    private String picture;
 
     Set<RoleEntity> roles = new HashSet<>();
  /*   private Collection<PaymentEntity> paymentsByStaffId;
@@ -124,13 +124,35 @@ public class StaffEntity {
     }
 
     @Basic
-    @Column(name = "picture", nullable = true)
-    public byte[] getPicture() {
+    @Column(name = "picture")
+    public String getPicture() {
         return picture;
     }
 
-    public void setPicture(byte[] picture) {
+    public void setPicture(String picture) {
         this.picture = picture;
+    }
+
+  /*   @Basic
+    @Column(name = "picture", nullable = true)
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }*/
+
+
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @JoinTable(name = "staff_role", joinColumns = {@JoinColumn(name = "id_staff")},
+            inverseJoinColumns = {@JoinColumn(name = "id_role")})
+    public Set<RoleEntity> getRoles() {
+        return this.roles;
+    }
+
+    public void setRoles(Set<RoleEntity> roles) {
+        this.roles = roles;
     }
 
     @Override
@@ -149,7 +171,7 @@ public class StaffEntity {
         if (username != null ? !username.equals(that.username) : that.username != null) return false;
         if (password != null ? !password.equals(that.password) : that.password != null) return false;
         if (lastUpdate != null ? !lastUpdate.equals(that.lastUpdate) : that.lastUpdate != null) return false;
-        if (!Arrays.equals(picture, that.picture)) return false;
+        if (picture != null ? !picture.equals(that.picture) : that.picture != null) return false;
 
         return true;
     }
@@ -165,21 +187,11 @@ public class StaffEntity {
         result = 31 * result + (username != null ? username.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
         result = 31 * result + (lastUpdate != null ? lastUpdate.hashCode() : 0);
-        result = 31 * result + Arrays.hashCode(picture);
+        result = 31 * result + (picture != null ? picture.hashCode() : 0);
         return result;
     }
 
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
-    @JoinTable(name = "staff_role", joinColumns = { @JoinColumn(name = "id_staff") },
-            inverseJoinColumns = { @JoinColumn(name = "id_role") })
-    public Set<RoleEntity> getRoles() {
-        return this.roles;
-    }
-
-    public void setRoles(Set<RoleEntity> roles) {
-        this.roles = roles;
-    }
 
    /* @OneToMany(mappedBy = "staffByStaffId")
     public Collection<PaymentEntity> getPaymentsByStaffId() {
