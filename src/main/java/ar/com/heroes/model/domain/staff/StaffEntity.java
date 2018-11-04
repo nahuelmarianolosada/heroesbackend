@@ -1,6 +1,7 @@
 package ar.com.heroes.model.domain.staff;
 
 import ar.com.heroes.model.domain.role.RoleEntity;
+import ar.com.heroes.model.domain.store.StoreEntity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -19,6 +20,7 @@ public class StaffEntity {
     private String firstName;
     private String lastName;
     private String email;
+    /*private StoreEntity store;*/
     private short storeId;
     private boolean active;
     private String username;
@@ -211,14 +213,14 @@ public class StaffEntity {
         this.rentalsByStaffId = rentalsByStaffId;
     }*/
 
-   /* @ManyToOne
-    @JoinColumn(name = "address_id", referencedColumnName = "address_id", nullable = false)
-    public AddressEntity getAddressByAddressId() {
-        return addressByAddressId;
+    /*@ManyToOne
+    @JoinColumn(name = "store_id", referencedColumnName = "store_id", nullable = false)
+    public StoreEntity getStore() {
+        return store;
     }
 
-    public void setAddressByAddressId(AddressEntity addressByAddressId) {
-        this.addressByAddressId = addressByAddressId;
+    public void setStore(StoreEntity store) {
+        this.store = store;
     }*/
 
    /* @OneToMany(mappedBy = "staffByIdStaff")

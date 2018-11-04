@@ -35,11 +35,6 @@ public class StaffRestController {
     }
 
 
-
-
-
-
-
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> getStaffEntity(@PathVariable("id") int id) {
         /*return this.staffs.stream().filter(staff -> staff.getStaffId() == id).findFirst().orElse(null);*/

@@ -1,5 +1,8 @@
 package ar.com.heroes.model.domain.store;
 
+import ar.com.heroes.model.domain.address.AddressEntity;
+import ar.com.heroes.model.domain.staff.StaffEntity;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -10,11 +13,11 @@ import java.sql.Timestamp;
 @Table(name = "store", schema = "public", catalog = "dvdrental")
 public class StoreEntity {
     private int storeId;
-    private short managerStaffId;
-    private short addressId;
+    /*private short managerStaffId;
+    private short addressId;*/
     private Timestamp lastUpdate;
-    /*private StaffEntity staffByManagerStaffId;
-    private AddressEntity addressByAddressId;*/
+    private StaffEntity managerStaff;
+    private AddressEntity address;
 
     @Id
     @Column(name = "store_id", nullable = false)
@@ -26,7 +29,7 @@ public class StoreEntity {
         this.storeId = storeId;
     }
 
-    @Basic
+    /*@Basic
     @Column(name = "manager_staff_id", nullable = false)
     public short getManagerStaffId() {
         return managerStaffId;
@@ -44,7 +47,7 @@ public class StoreEntity {
 
     public void setAddressId(short addressId) {
         this.addressId = addressId;
-    }
+    }*/
 
     @Basic
     @Column(name = "last_update", nullable = false)
@@ -56,7 +59,7 @@ public class StoreEntity {
         this.lastUpdate = lastUpdate;
     }
 
-    @Override
+    /*@Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -69,34 +72,34 @@ public class StoreEntity {
         if (lastUpdate != null ? !lastUpdate.equals(that.lastUpdate) : that.lastUpdate != null) return false;
 
         return true;
-    }
+    }*/
 
-    @Override
+    /*@Override
     public int hashCode() {
         int result = storeId;
         result = 31 * result + (int) managerStaffId;
         result = 31 * result + (int) addressId;
         result = 31 * result + (lastUpdate != null ? lastUpdate.hashCode() : 0);
         return result;
-    }
+    }*/
 
-    /*@ManyToOne
+    @ManyToOne
     @JoinColumn(name = "manager_staff_id", referencedColumnName = "staff_id", nullable = false)
-    public StaffEntity getStaffByManagerStaffId() {
-        return staffByManagerStaffId;
+    public StaffEntity getManagerStaff() {
+        return managerStaff;
     }
 
-    public void setStaffByManagerStaffId(StaffEntity staffByManagerStaffId) {
-        this.staffByManagerStaffId = staffByManagerStaffId;
+    public void setManagerStaff(StaffEntity managerStaff) {
+        this.managerStaff = managerStaff;
     }
 
     @ManyToOne
     @JoinColumn(name = "address_id", referencedColumnName = "address_id", nullable = false)
-    public AddressEntity getAddressByAddressId() {
-        return addressByAddressId;
+    public AddressEntity getAddress() {
+        return address;
     }
 
-    public void setAddressByAddressId(AddressEntity addressByAddressId) {
-        this.addressByAddressId = addressByAddressId;
-    }*/
+    public void setAddress(AddressEntity address) {
+        this.address = address;
+    }
 }
