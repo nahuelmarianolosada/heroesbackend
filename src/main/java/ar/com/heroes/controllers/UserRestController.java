@@ -54,6 +54,18 @@ public class UserRestController {
     }
 
 
+    @RequestMapping(value = "/findByEmail/{email:.+}",
+            method = RequestMethod.GET)
+    public ResponseEntity<?> getUserEntity(@PathVariable("email") String email) {
+        UserEntity staff = userService.findByEmail(email);
+        if (staff == null) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        staff.setPassword(null);
+        return new ResponseEntity<>(staff, HttpStatus.OK);
+    }
+
+
 
     @RequestMapping(method = RequestMethod.POST , consumes = "application/json")
     public ResponseEntity<?> saveUserEntity(@RequestBody UserEntity user) {

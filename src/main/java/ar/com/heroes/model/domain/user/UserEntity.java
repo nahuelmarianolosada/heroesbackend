@@ -1,10 +1,12 @@
 package ar.com.heroes.model.domain.user;
 
 import ar.com.heroes.model.domain.role.RoleEntity;
+import ar.com.heroes.model.domain.store.StoreEntity;
 import ar.com.heroes.model.domain.userRole.UserRoleEntity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -21,16 +23,16 @@ public class UserEntity {
     private String lastName;
     private String email;
     private String password;
-   /* private Collection<UserRoleEntity> userRolesById;*/
+    private StoreEntity store;
+    private boolean active;
+    private String username;
+    private Timestamp lastUpdate;
+    private String picture;
+
 
     Set<RoleEntity> roles = new HashSet<>();
-    /*@ManyToMany(cascade = { CascadeType.ALL })
-    @JoinTable(
-            name = "user_role",
-            joinColumns = { @JoinColumn(name = "id_user") },
-            inverseJoinColumns = { @JoinColumn(name = "id_role") }
-    )*/
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = { @JoinColumn(name = "id_user") },
             inverseJoinColumns = { @JoinColumn(name = "id_role") })
     public Set<RoleEntity> getRoles() {
@@ -67,7 +69,7 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "last_name", nullable = true, length = 50)
+    @Column(name = "last_name", length = 50)
     public String getLastName() {
         return lastName;
     }
@@ -77,7 +79,7 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "email", nullable = true, length = 100)
+    @Column(name = "email", length = 100)
     public String getEmail() {
         return email;
     }
@@ -87,7 +89,7 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "password", nullable = true, length = 50)
+    @Column(name = "password", length = 50)
     public String getPassword() {
         return password;
     }
@@ -96,49 +98,92 @@ public class UserEntity {
         this.password = password;
     }
 
-    /*public Set<RoleEntity> getRoles() {
-        return roles;
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "store_id")
+    public StoreEntity getStore() {
+        return store;
     }
 
-    public void setRoles(Set<RoleEntity> roles) {
-        this.roles = roles;
-    }*/
-
-
-    /* @OneToMany(mappedBy = "userByIdUser")
-    public Collection<UserRoleEntity> getUserRolesById() {
-        return userRolesById;
+    public void setStore(StoreEntity store) {
+        this.store = store;
     }
 
-    public void setUserRolesById(Collection<UserRoleEntity> userRolesById) {
-        this.userRolesById = userRolesById;
-    }*/
+    @Basic
+    @Column(name = "active", nullable = true)
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    @Basic
+    @Column(name = "username", length = 20, nullable = true)
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    @Basic
+    @Column(name = "last_update")
+    public Timestamp getLastUpdate() {
+        return lastUpdate;
+    }
+
+    public void setLastUpdate(Timestamp lastUpdate) {
+        this.lastUpdate = lastUpdate;
+    }
+
+    @Basic
+    @Column(name = "picture", length = 1000)
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof UserEntity)) return false;
 
         UserEntity that = (UserEntity) o;
 
-        if (id != that.id) return false;
-        if (firstName != null ? !firstName.equals(that.firstName) : that.firstName != null) return false;
-        if (lastName != null ? !lastName.equals(that.lastName) : that.lastName != null) return false;
-        if (email != null ? !email.equals(that.email) : that.email != null) return false;
-        if (password != null ? !password.equals(that.password) : that.password != null) return false;
-
-        return true;
+        if (isActive() != that.isActive()) return false;
+        if (!getId().equals(that.getId())) return false;
+        if (getFirstName() != null ? !getFirstName().equals(that.getFirstName()) : that.getFirstName() != null)
+            return false;
+        if (getLastName() != null ? !getLastName().equals(that.getLastName()) : that.getLastName() != null)
+            return false;
+        if (getEmail() != null ? !getEmail().equals(that.getEmail()) : that.getEmail() != null) return false;
+        if (getPassword() != null ? !getPassword().equals(that.getPassword()) : that.getPassword() != null)
+            return false;
+        if (getUsername() != null ? !getUsername().equals(that.getUsername()) : that.getUsername() != null)
+            return false;
+        if (getLastUpdate() != null ? !getLastUpdate().equals(that.getLastUpdate()) : that.getLastUpdate() != null)
+            return false;
+        if (getPicture() != null ? !getPicture().equals(that.getPicture()) : that.getPicture() != null) return false;
+        return getRoles() != null ? getRoles().equals(that.getRoles()) : that.getRoles() == null;
     }
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
-        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
-        result = 31 * result + (email != null ? email.hashCode() : 0);
-        result = 31 * result + (password != null ? password.hashCode() : 0);
+        int result = getId().hashCode();
+        result = 31 * result + (getFirstName() != null ? getFirstName().hashCode() : 0);
+        result = 31 * result + (getLastName() != null ? getLastName().hashCode() : 0);
+        result = 31 * result + (getEmail() != null ? getEmail().hashCode() : 0);
+        result = 31 * result + (getPassword() != null ? getPassword().hashCode() : 0);
+        result = 31 * result + (isActive() ? 1 : 0);
+        result = 31 * result + (getUsername() != null ? getUsername().hashCode() : 0);
+        result = 31 * result + (getLastUpdate() != null ? getLastUpdate().hashCode() : 0);
+        result = 31 * result + (getPicture() != null ? getPicture().hashCode() : 0);
+        result = 31 * result + (getRoles() != null ? getRoles().hashCode() : 0);
         return result;
     }
-
-
 }
