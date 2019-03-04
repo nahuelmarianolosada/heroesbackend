@@ -27,7 +27,7 @@ public class StaffServiceImpl implements IStaffService {
     @Autowired
     private IStaffDao staffDao;
 
-    @Override
+   /* @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         StaffEntity staff = staffDao.findByEmail(email);
         if (staff == null){
@@ -36,7 +36,7 @@ public class StaffServiceImpl implements IStaffService {
         return new org.springframework.security.core.userdetails.User(staff.getEmail(),
                 staff.getPassword(),
                 mapRolesToAuthorities(staff.getRoles()));
-    }
+    }*/
 
 
 

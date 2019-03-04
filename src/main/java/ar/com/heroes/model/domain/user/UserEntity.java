@@ -2,12 +2,10 @@ package ar.com.heroes.model.domain.user;
 
 import ar.com.heroes.model.domain.role.RoleEntity;
 import ar.com.heroes.model.domain.store.StoreEntity;
-import ar.com.heroes.model.domain.userRole.UserRoleEntity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,19 +13,19 @@ import java.util.Set;
  * Created by nlosada on 15/05/18.
  */
 @Entity
-@Table(name = "user", schema = "public", catalog = "dvdrental")
+@Table(name = "USER", schema = "public")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UserEntity {
     private Integer id;
     private String firstName;
     private String lastName;
     private String email;
-    private String password;
+    private String pass;
     private StoreEntity store;
     private boolean active;
     private String username;
     private Timestamp lastUpdate;
-    private String picture;
+    private String img;
 
 
     Set<RoleEntity> roles = new HashSet<>();
@@ -89,13 +87,13 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "password", length = 50)
-    public String getPassword() {
-        return password;
+    @Column(name = "pass", length = 500)
+    public String getPass() {
+        return pass;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPass(String password) {
+        this.pass = password;
     }
 
     @OneToOne(fetch = FetchType.EAGER)
@@ -139,13 +137,13 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "picture", length = 1000)
-    public String getPicture() {
-        return picture;
+    @Column(name = "img", length = 1000)
+    public String getImg() {
+        return img;
     }
 
-    public void setPicture(String picture) {
-        this.picture = picture;
+    public void setImg(String picture) {
+        this.img = picture;
     }
 
     @Override
@@ -162,13 +160,13 @@ public class UserEntity {
         if (getLastName() != null ? !getLastName().equals(that.getLastName()) : that.getLastName() != null)
             return false;
         if (getEmail() != null ? !getEmail().equals(that.getEmail()) : that.getEmail() != null) return false;
-        if (getPassword() != null ? !getPassword().equals(that.getPassword()) : that.getPassword() != null)
+        if (getPass() != null ? !getPass().equals(that.getPass()) : that.getPass() != null)
             return false;
         if (getUsername() != null ? !getUsername().equals(that.getUsername()) : that.getUsername() != null)
             return false;
         if (getLastUpdate() != null ? !getLastUpdate().equals(that.getLastUpdate()) : that.getLastUpdate() != null)
             return false;
-        if (getPicture() != null ? !getPicture().equals(that.getPicture()) : that.getPicture() != null) return false;
+        if (getImg() != null ? !getImg().equals(that.getImg()) : that.getImg() != null) return false;
         return getRoles() != null ? getRoles().equals(that.getRoles()) : that.getRoles() == null;
     }
 
@@ -178,11 +176,11 @@ public class UserEntity {
         result = 31 * result + (getFirstName() != null ? getFirstName().hashCode() : 0);
         result = 31 * result + (getLastName() != null ? getLastName().hashCode() : 0);
         result = 31 * result + (getEmail() != null ? getEmail().hashCode() : 0);
-        result = 31 * result + (getPassword() != null ? getPassword().hashCode() : 0);
+        result = 31 * result + (getPass() != null ? getPass().hashCode() : 0);
         result = 31 * result + (isActive() ? 1 : 0);
         result = 31 * result + (getUsername() != null ? getUsername().hashCode() : 0);
         result = 31 * result + (getLastUpdate() != null ? getLastUpdate().hashCode() : 0);
-        result = 31 * result + (getPicture() != null ? getPicture().hashCode() : 0);
+        result = 31 * result + (getImg() != null ? getImg().hashCode() : 0);
         result = 31 * result + (getRoles() != null ? getRoles().hashCode() : 0);
         return result;
     }

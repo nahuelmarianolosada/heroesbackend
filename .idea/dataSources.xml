@@ -1,19 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="dvdrental@localhost" uuid="9d44737b-cafa-42cf-902e-2818b0d9a1e4">
+    <data-source source="LOCAL" name="petshop_db@localhost" uuid="bc4ff8bf-2b04-4df8-b0c0-c46d7b05e70f">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://localhost:5432/dvdrental</jdbc-url>
-    </data-source>
-    <data-source source="LOCAL" name="sessionFactory/Hibernate" uuid="2112eaa5-6a6a-44b7-b605-414bc25b07e0">
-      <driver-ref>postgresql</driver-ref>
-      <synchronize>true</synchronize>
-      <imported>true</imported>
-      <remarks>$PROJECT_DIR$/src/main/webapp/WEB-INF/spring/dispatcher-servlet.xml</remarks>
-      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://localhost:5432/dvdrental</jdbc-url>
+      <jdbc-url>jdbc:postgresql://localhost:5432/petshop_db</jdbc-url>
     </data-source>
   </component>
 </project>

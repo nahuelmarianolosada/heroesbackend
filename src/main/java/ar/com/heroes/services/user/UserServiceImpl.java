@@ -4,13 +4,11 @@ import ar.com.heroes.config.BcryptGenerator;
 import ar.com.heroes.model.dao.user.IUserDao;
 import ar.com.heroes.model.domain.role.RoleEntity;
 import ar.com.heroes.model.domain.user.UserEntity;
-import ar.com.heroes.model.domain.userRole.UserRoleEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,16 +27,16 @@ public class UserServiceImpl implements IUserService {
     @Autowired
     private IUserDao userDao;
 
-   /* @Override
+    @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         UserEntity user = userDao.findByEmail(email);
         if (user == null){
             throw new UsernameNotFoundException("Invalid username or password.");
         }
         return new org.springframework.security.core.userdetails.User(user.getEmail(),
-                user.getPassword(),
+                user.getPass(),
                 mapRolesToAuthorities(user.getRoles()));
-    }*/
+    }
 
 
 
@@ -68,13 +66,13 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public UserEntity insert(UserEntity newUser) {
-        newUser.setPassword(BcryptGenerator.getCodedPass(newUser.getPassword()));
+        newUser.setPass(BcryptGenerator.getCodedPass(newUser.getPass()));
         return userDao.insertUser(newUser);
     }
 
     @Override
     public UserEntity update(UserEntity updateUser) {
-        updateUser.setPassword(BcryptGenerator.getCodedPass(updateUser.getPassword()));
+        updateUser.setPass(BcryptGenerator.getCodedPass(updateUser.getPass()));
         return userDao.updateUser(updateUser);
     }
 

@@ -32,7 +32,7 @@ import java.sql.Timestamp;
                 resultClass = ActorInfoEntity.class)
 })
 @Entity
-@Table(name="actor_info")
+@Table(name="actor_info", schema = "public", catalog = "dvdrental")
 public class ActorInfoEntity implements Serializable {
 
     private int actorId;

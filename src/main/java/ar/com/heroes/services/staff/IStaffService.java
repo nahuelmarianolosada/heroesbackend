@@ -10,9 +10,9 @@ import java.util.List;
 /**
  * Created by nlosada on 29/06/18.
  */
-public interface IStaffService extends UserDetailsService {
-    @Override
-    UserDetails loadUserByUsername(String email) throws UsernameNotFoundException;
+public interface IStaffService {
+   /* @Override
+    UserDetails loadUserByUsername(String email) throws UsernameNotFoundException;*/
     StaffEntity findByEmail(String email);
 
     List<StaffEntity> getAll();

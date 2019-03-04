@@ -14,7 +14,7 @@ import java.util.Set;
  */
 @Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
-@Table(name = "role", schema = "public", catalog = "dvdrental")
+@Table(name = "ROLE", schema = "public")
 public class RoleEntity {
     private int id;
     private String key;
@@ -26,7 +26,8 @@ public class RoleEntity {
     private Set<UserEntity> users= new HashSet<>();*/
 
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "id", unique=true, nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }

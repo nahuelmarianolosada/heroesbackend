@@ -12,9 +12,9 @@ import java.util.List;
 /**
  * Created by nlosada on 29/06/18.
  */
-public interface IUserService /*extends UserDetailsService*/ {
-   /* @Override
-    UserDetails loadUserByUsername(String email) throws UsernameNotFoundException;*/
+public interface IUserService extends UserDetailsService {
+    @Override
+    UserDetails loadUserByUsername(String email) throws UsernameNotFoundException;
     UserEntity findByEmail(String email);
 
     List<UserEntity> getAll();

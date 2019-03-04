@@ -28,7 +28,7 @@ public class StaffEntity {
     private Timestamp lastUpdate;
     private String picture;
 
-    Set<RoleEntity> roles = new HashSet<>();
+   // Set<RoleEntity> roles = new HashSet<>();
  /*   private Collection<PaymentEntity> paymentsByStaffId;
     private Collection<RentalEntity> rentalsByStaffId;*/
 /*    private AddressEntity addressByAddressId;*/
@@ -146,6 +146,7 @@ public class StaffEntity {
     }*/
 
 
+  /*
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinTable(name = "staff_role", joinColumns = {@JoinColumn(name = "id_staff")},
             inverseJoinColumns = {@JoinColumn(name = "id_role")})
@@ -156,6 +157,7 @@ public class StaffEntity {
     public void setRoles(Set<RoleEntity> roles) {
         this.roles = roles;
     }
+    */
 
     @Override
     public boolean equals(Object o) {

@@ -10,13 +10,13 @@ import java.sql.Timestamp;
  * Created by nlosada on 29/09/18.
  */
 @Entity
-@Table(name = "store", schema = "public", catalog = "dvdrental")
+@Table(name = "STORE", schema = "public")
 public class StoreEntity {
     private int storeId;
     /*private short managerStaffId;
     private short addressId;*/
     private Timestamp lastUpdate;
-    private StaffEntity managerStaff;
+    //private StaffEntity managerStaff;
     private AddressEntity address;
 
     @Id
@@ -83,6 +83,7 @@ public class StoreEntity {
         return result;
     }*/
 
+    /*
     @ManyToOne
     @JoinColumn(name = "manager_staff_id", referencedColumnName = "staff_id", nullable = false)
     public StaffEntity getManagerStaff() {
@@ -102,4 +103,5 @@ public class StoreEntity {
     public void setAddress(AddressEntity address) {
         this.address = address;
     }
+    */
 }

@@ -61,7 +61,7 @@ public class UserRestController {
         if (staff == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        staff.setPassword(null);
+        staff.setPass(null);
         return new ResponseEntity<>(staff, HttpStatus.OK);
     }
 
