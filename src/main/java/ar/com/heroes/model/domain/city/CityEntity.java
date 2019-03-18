@@ -1,5 +1,8 @@
 package ar.com.heroes.model.domain.city;
 
+import ar.com.heroes.model.domain.country.CountryEntity;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -7,15 +10,16 @@ import java.sql.Timestamp;
  * Created by nlosada on 18/04/18.
  */
 @Entity
-@Table(name = "city", schema = "public", catalog = "dvdrental")
+@Table(name = "CITY", schema = "public")
 public class CityEntity {
     private int cityId;
     private String city;
-    private short countryId;
+    private CountryEntity country;
     private Timestamp lastUpdate;
 
     @Id
     @Column(name = "city_id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getCityId() {
         return cityId;
     }
@@ -34,14 +38,14 @@ public class CityEntity {
         this.city = city;
     }
 
-    @Basic
-    @Column(name = "country_id", nullable = false)
-    public short getCountryId() {
-        return countryId;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "country_id", nullable = false)
+    public CountryEntity getCountry() {
+        return country;
     }
 
-    public void setCountryId(short countryId) {
-        this.countryId = countryId;
+    public void setCountry(CountryEntity country) {
+        this.country = country;
     }
 
     @Basic
@@ -62,7 +66,6 @@ public class CityEntity {
         CityEntity that = (CityEntity) o;
 
         if (cityId != that.cityId) return false;
-        if (countryId != that.countryId) return false;
         if (city != null ? !city.equals(that.city) : that.city != null) return false;
         if (lastUpdate != null ? !lastUpdate.equals(that.lastUpdate) : that.lastUpdate != null) return false;
 
@@ -73,7 +76,6 @@ public class CityEntity {
     public int hashCode() {
         int result = cityId;
         result = 31 * result + (city != null ? city.hashCode() : 0);
-        result = 31 * result + (int) countryId;
         result = 31 * result + (lastUpdate != null ? lastUpdate.hashCode() : 0);
         return result;
     }

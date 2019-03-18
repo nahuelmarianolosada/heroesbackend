@@ -1,5 +1,7 @@
 package ar.com.heroes.model.domain.address;
 
+import ar.com.heroes.model.domain.city.CityEntity;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -13,13 +15,14 @@ public class AddressEntity {
     private String address;
     private String address2;
     private String district;
-    private short cityId;
+    private CityEntity city;
     private String postalCode;
     private String phone;
     private Timestamp lastUpdate;
 
     @Id
     @Column(name = "address_id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getAddressId() {
         return addressId;
     }
@@ -58,18 +61,15 @@ public class AddressEntity {
         this.district = district;
     }
 
-    @Basic
-    @Column(name = "city_id", nullable = false)
-    public short getCityId() {
-        return cityId;
-    }
 
-    public void setCityId(short cityId) {
-        this.cityId = cityId;
-    }
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "city_id", nullable = false)
+    public CityEntity getCity() { return city; }
+
+    public void setCity(CityEntity city) { this.city = city; }
 
     @Basic
-    @Column(name = "postal_code", nullable = true, length = 10)
+    @Column(name = "postal_code", length = 10)
     public String getPostalCode() {
         return postalCode;
     }
@@ -106,7 +106,6 @@ public class AddressEntity {
         AddressEntity that = (AddressEntity) o;
 
         if (addressId != that.addressId) return false;
-        if (cityId != that.cityId) return false;
         if (address != null ? !address.equals(that.address) : that.address != null) return false;
         if (address2 != null ? !address2.equals(that.address2) : that.address2 != null) return false;
         if (district != null ? !district.equals(that.district) : that.district != null) return false;
@@ -123,7 +122,6 @@ public class AddressEntity {
         result = 31 * result + (address != null ? address.hashCode() : 0);
         result = 31 * result + (address2 != null ? address2.hashCode() : 0);
         result = 31 * result + (district != null ? district.hashCode() : 0);
-        result = 31 * result + (int) cityId;
         result = 31 * result + (postalCode != null ? postalCode.hashCode() : 0);
         result = 31 * result + (phone != null ? phone.hashCode() : 0);
         result = 31 * result + (lastUpdate != null ? lastUpdate.hashCode() : 0);

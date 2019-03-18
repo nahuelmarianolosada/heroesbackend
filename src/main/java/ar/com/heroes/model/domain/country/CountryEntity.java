@@ -1,5 +1,7 @@
 package ar.com.heroes.model.domain.country;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -7,7 +9,7 @@ import java.sql.Timestamp;
  * Created by nlosada on 18/04/18.
  */
 @Entity
-@Table(name = "country", schema = "public", catalog = "dvdrental")
+@Table(name = "COUNTRY", schema = "public")
 public class CountryEntity {
     private int countryId;
     private String country;
